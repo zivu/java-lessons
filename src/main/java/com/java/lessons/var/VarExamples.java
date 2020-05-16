@@ -1,10 +1,13 @@
 package com.java.lessons.var;
 
 //import lombok.var;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.function.BiFunction;
 
@@ -140,5 +143,31 @@ public class VarExamples {
     /*------------------------------------ LOMBOK ALTERNATIVE: 'var' and 'val' ------------------------------------*/
     // explicit import required
     // import lombok.var;
+
+    /*------------------------------------ PITFALLS ------------------------------------*/
+
+    /**
+     * Be careful using var with diamonds <>.
+     * Type inference for generic methods relies on target type (what on the left of '=').
+     * In this case 'var' inferred type is PriorityQueue<Object> might be not what we might expect.
+     */
+    public void varPitfallsWithDiamonds() {
+        PriorityQueue<String> queue = new PriorityQueue<>();
+        System.out.println(queue);
+        var inferredQueue = new PriorityQueue<>();
+        System.out.println(inferredQueue);
+    }
+
+    /**
+     * It it a common practice in java to construct a concrete instance
+     * and assign it to an interface type.
+     * If 'var' is used, inferred type is a concrete instance, instead of an interface.
+     */
+    public void varPitfallsWithList() {
+        List<String> users = new ArrayList<>();
+        System.out.println(users);
+        var workers = new ArrayList<>();
+        System.out.println(workers);
+    }
 
 }
