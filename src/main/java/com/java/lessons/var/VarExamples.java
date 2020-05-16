@@ -101,7 +101,7 @@ public class VarExamples {
 //      var x = {"one", "two"};
     }
 
-    /*--------------------- 'var' IS NOT A KEYWORD, IT IS RESERVED TYPE NAME, HENCE ---------------------*/
+    /*------------------------------------ 'var' IS NOT A KEYWORD, IT IS RESERVED TYPE NAME, HENCE ------------------------------------*/
 
 //  (1) you can use var as a variable name
     private final String var ="t";
