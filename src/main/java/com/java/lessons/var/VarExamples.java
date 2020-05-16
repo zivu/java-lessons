@@ -10,7 +10,8 @@ import java.util.function.BiFunction;
 
 /**
  * This lesson includes local variable type inference from jdk 10
- * and local variable syntax for lambda parameters (jdk 11)
+ * and local variable syntax for lambda parameters (jdk 11).
+ * Official documentation: https://openjdk.java.net/jeps/286
  */
 public class VarExamples {
 
