@@ -5,16 +5,14 @@ package com.java.lessons.var;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.BiFunction;
 
 /**
  * This lesson includes local variable type inference from jdk 10
  * and local variable syntax for lambda parameters (jdk 11).
  * Official documentation: https://openjdk.java.net/jeps/286
+ * Style guidelines: https://openjdk.java.net/projects/amber/LVTIstyle.html
  */
 public class VarExamples {
 
@@ -23,7 +21,7 @@ public class VarExamples {
     }
 
     /**
-     * reserved type name 'var' was introduced to be used instead of explicit type declaration,
+     * Reserved type name 'var' was introduced to be used instead of explicit type declaration,
      * where type can be deduced.
      */
 
@@ -99,8 +97,10 @@ public class VarExamples {
     public void prohibitedCasesWithVar() {
 //  (6) var not allowed as a target type of lambda expression
 //      var serialNumber = (x, y) -> x + "&" + y;
+
 //  (7) null cannot be assigned to var
 //      var x = null;
+
 //  (8) var cannot be used with array initializer
 //      var x = {"one", "two"};
     }
@@ -141,26 +141,32 @@ public class VarExamples {
     }
 
     /*------------------------------------ LOMBOK ALTERNATIVE: 'var' and 'val' ------------------------------------*/
-    // explicit import required
-    // import lombok.var;
+
+    /*
+     * Explicit import required:
+     * import lombok.var;
+     */
 
     /*------------------------------------ PITFALLS ------------------------------------*/
 
     /**
      * Be careful using var with diamonds <>.
      * Type inference for generic methods relies on target type (what on the left of '=').
-     * In this case 'var' inferred type is PriorityQueue<Object> might be not what we might expect.
+     * For 'var inferredQueue' inferred type is PriorityQueue<Object> might be not what we might expect.
+     * Can be mitigated by providing constructors with parameters.
      */
     public void varPitfallsWithDiamonds() {
         PriorityQueue<String> queue = new PriorityQueue<>();
         System.out.println(queue);
         var inferredQueue = new PriorityQueue<>();
         System.out.println(inferredQueue);
+        Comparator<String> comparator = (o1, o2) -> 0;
+        var correctInferredQueue = new PriorityQueue<>(comparator);
+        System.out.println(correctInferredQueue);
     }
 
     /**
-     * It it a common practice in java to construct a concrete instance
-     * and assign it to an interface type.
+     * It it a common practice in java to construct a concrete instance and assign it to an interface type.
      * If 'var' is used, inferred type is a concrete instance, instead of an interface.
      */
     public void varPitfallsWithList() {
@@ -168,6 +174,17 @@ public class VarExamples {
         System.out.println(users);
         var workers = new ArrayList<>();
         System.out.println(workers);
+    }
+
+    /**
+     * With a numeric type on the left a type might be widened or narrowed to types other than int.
+     * With 'var' type is always int.
+     */
+    public void pitfallWithNumericLiterals() {
+        byte point = 0;
+        short hash = 0x77f;
+        long id = 2;
+        var x = 34;
     }
 
 }
