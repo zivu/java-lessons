@@ -21,7 +21,7 @@ public class VarExamples {
     }
 
     /**
-     * Reserved type name 'var' was introduced to be used instead of explicit type declaration,
+     * Reserved type name 'var' was introduced to be used instead of the explicit type declaration,
      * where type can be deduced.
      */
 
@@ -151,7 +151,7 @@ public class VarExamples {
 
     /**
      * Be careful using var with diamonds <>.
-     * Type inference for generic methods relies on target type (what on the left of '=').
+     * Type inference for generic methods relies on the target type (what on the left of '=').
      * For 'var inferredQueue' inferred type is PriorityQueue<Object> might be not what we might expect.
      * Can be mitigated by providing constructors with parameters.
      */
@@ -166,8 +166,8 @@ public class VarExamples {
     }
 
     /**
-     * It it a common practice in java to construct a concrete instance and assign it to an interface type.
-     * If 'var' is used, inferred type is a concrete instance, instead of an interface.
+     * It is a common practice in java to construct a concrete instance and assign it to an interface type.
+     * If 'var' is used, the inferred type is a concrete instance, instead of an interface.
      */
     public void varPitfallsWithList() {
         List<String> users = new ArrayList<>();
@@ -177,7 +177,7 @@ public class VarExamples {
     }
 
     /**
-     * With a numeric type on the left a type might be widened or narrowed to types other than int.
+     * With a numeric type on the left, a type might be widened or narrowed to types other than int.
      * With 'var' type is always int.
      */
     public void pitfallWithNumericLiterals() {
